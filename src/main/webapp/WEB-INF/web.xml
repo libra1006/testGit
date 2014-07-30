@@ -5,10 +5,10 @@
     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
     id="WebApp_ID" version="3.0">
     
-    <welcome-file-list>
-        <welcome-file>index</welcome-file>
-    </welcome-file-list>
-    
+    <!-- 加载 Spring 配置 -->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
     
     <!-- Spring MVC 配置 -->
     <servlet>
@@ -19,17 +19,13 @@
             <param-name>contextConfigLocation</param-name>
             <param-value>classpath:springMVC-servlet.xml</param-value>
         </init-param>
+        <load-on-startup>1</load-on-startup>
     </servlet>
     
     <servlet-mapping>
-    	<servlet-name>fleaSchool</servlet-name>
-    	<url-pattern>*.do</url-pattern>
+    	<servlet-name>springMVC</servlet-name>
+    	<url-pattern>/</url-pattern>
     </servlet-mapping>
-
-	<!-- 加载 Spring 配置 -->
-	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	</listener>
 
 	<!-- 指定Spring Bean配置文件 -->
 	<context-param>

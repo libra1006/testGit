@@ -2,18 +2,24 @@ package com.github.Yasenia.flea_school.server.dao.impl;
 
 import java.util.List;
 
+import javax.inject.Named;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import com.github.Yasenia.flea_school.server.dao.IUserDAO;
 import com.github.Yasenia.flea_school.server.entity.User;
 
+@Named("userDAO")
 public class UserDAOImpl implements IUserDAO {
 
+    @PersistenceContext
     private EntityManager em;
 
     public void save(User user) {
+        System.out.println("em is: " + em);
         em.persist(user);
+        System.out.println("dsdsdsdsds");
     }
 
     public void delete(User user) {

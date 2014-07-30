@@ -8,9 +8,12 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 
-	<!-- 自动扫描的包名 -->
-	<context:component-scan base-package="com.github.Yasenia.flea_school.server.*"></context:component-scan>
-
+    
+    <!--排除扫描的包， 对web包中的所有类进行扫描，以完成Bean创建和自动依赖注入的功能 -->
+    <context:component-scan base-package="com.github.Yasenia.flea_school.server" use-default-filters="true">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+    </context:component-scan> 
+    
 	<!-- 默认的注解映射的支持 -->
 	<mvc:annotation-driven />
 
@@ -19,16 +22,9 @@
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/jsp/" />
-		<property name="suffix" value=".jsp" /><!--可为空,方便实现自已的依据扩展名来选择视图解释类的逻辑 -->
-		<property name="viewClass"
-			value="org.springframework.web.servlet.view.JstlView" />
+		<property name="suffix" value=".jsp" />
 	</bean>
 
-	<!-- 拦截器 -->
-	<mvc:interceptors>
-		<bean class="com.core.mvc.MyInteceptor" />
-	</mvc:interceptors>
-
-	<!-- 对静态资源文件的访问 方案一 （二选一） -->
+	<!-- 对静态资源文件的访问 方案 -->
 	<mvc:default-servlet-handler />  
 </beans>

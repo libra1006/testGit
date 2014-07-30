@@ -28,12 +28,18 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- -->
-
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<version>3.0.1</version>
+		</dependency>
+
+
+		<!-- JSR-330 -->
+		<dependency>
+			<groupId>javax.inject</groupId>
+			<artifactId>javax.inject</artifactId>
+			<version>1</version>
 		</dependency>
 
 		<!-- Spring -->
@@ -122,9 +128,6 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- Struts2 -->
-
-
 		<!-- Hibernate -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
@@ -137,11 +140,6 @@
 			<version>${org.hibernate.version}</version>
 		</dependency>
 
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-annotations</artifactId>
-			<version>3.4.0.GA</version>
-		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-c3p0</artifactId>
