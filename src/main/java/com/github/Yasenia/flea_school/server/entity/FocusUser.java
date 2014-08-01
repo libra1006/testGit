@@ -18,29 +18,44 @@ import javax.persistence.TemporalType;
 @Table(name = "focus_user")
 public class FocusUser implements Serializable {
 
-    private static final long serialVersionUID = -1984452621834197015L;
+    private static final long serialVersionUID = -5245145594979421162L;
 
+    /**
+     * 关注Id
+     * */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Integer id;
 
+    /**
+     * 粉丝用户，非空
+     * */
     @ManyToOne
-    @JoinColumn(name = "fans_user")
+    @JoinColumn(name = "fans_user", nullable = false)
     private User fansUser;
 
+    /**
+     * 关注用户，非空
+     * */
     @ManyToOne
-    @JoinColumn(name = "focus_user")
+    @JoinColumn(name = "focus_user", nullable = false)
     private User focusUser;
 
-    @Column(name = "focus_date")
+    /**
+     * 关注日期，非空
+     * */
+    @Column(name = "focus_date", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date focusDate;
 
-    public int getId() {
+    /**
+     * getter & setter
+     * */
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

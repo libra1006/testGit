@@ -15,28 +15,43 @@ import javax.persistence.Table;
 @Table(name = "permit")
 public class Permit implements Serializable {
 
-    private static final long serialVersionUID = -8908382086603756448L;
+    private static final long serialVersionUID = 1683162268183274664L;
 
+    /**
+     * 通行证Id，自动生成
+     * */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Integer id;
 
+    /**
+     * 用户，非空
+     * */
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    /**
+     * 学校，非空
+     * */
     @ManyToOne
-    @JoinColumn(name = "school_id")
+    @JoinColumn(name = "school_id", nullable = false)
     private School school;
 
-    @Column(name = "number")
-    private int number;
+    /**
+     * 通行证号，非空
+     * */
+    @Column(name = "number", nullable = false)
+    private Integer number;
 
-    public int getId() {
+    /**
+     * getter & setter
+     * */
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -56,11 +71,11 @@ public class Permit implements Serializable {
         this.school = school;
     }
 
-    public int getNumber() {
+    public Integer getNumber() {
         return number;
     }
 
-    public void setNumber(int number) {
+    public void setNumber(Integer number) {
         this.number = number;
     }
 

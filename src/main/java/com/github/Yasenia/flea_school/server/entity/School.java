@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -15,29 +17,48 @@ import javax.persistence.Table;
 @Table(name = "school")
 public class School implements Serializable {
 
-    private static final long serialVersionUID = 7634678581082209265L;
+    private static final long serialVersionUID = -8407789524777146923L;
 
+    /**
+     * 学校Id，自动生成
+     * */
     @Id
-    private int id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
 
-    @Column(name = "name")
+    /**
+     * 学校名，非空
+     * */
+    @Column(name = "name", nullable = false)
     private String name;
 
+    /**
+     * 父级地址
+     * */
     @ManyToOne
     @JoinColumn(name = "parrent_address_id")
     private Address parrentAddress;
 
+    /**
+     * 用户列表
+     * */
     @OneToMany(mappedBy = "school")
-    private List<User> childrenUser;
+    private List<User> userList;
 
+    /**
+     * 通行证列表
+     * */
     @OneToMany(mappedBy = "school")
     private List<Permit> permitList;
 
-    public int getId() {
+    /**
+     * getter & setter
+     * */
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -57,12 +78,12 @@ public class School implements Serializable {
         this.parrentAddress = parrentAddress;
     }
 
-    public List<User> getChildrenUser() {
-        return childrenUser;
+    public List<User> getUserList() {
+        return userList;
     }
 
-    public void setChildrenUser(List<User> childrenUser) {
-        this.childrenUser = childrenUser;
+    public void setUserList(List<User> userList) {
+        this.userList = userList;
     }
 
     public List<Permit> getPermitList() {

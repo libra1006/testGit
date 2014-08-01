@@ -18,29 +18,44 @@ import javax.persistence.TemporalType;
 @Table(name = "collect_goods")
 public class CollectGoods implements Serializable {
 
-    private static final long serialVersionUID = -5474259883485716549L;
+    private static final long serialVersionUID = -4605301094710253050L;
 
+    /**
+     * 收藏Id
+     * */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Integer id;
 
+    /**
+     * 收藏用户，非空
+     * */
     @ManyToOne
-    @JoinColumn(name = "collect_user")
+    @JoinColumn(name = "collect_user", nullable = false)
     private User collectUser;
 
+    /**
+     * 收藏商品，非空
+     * */
     @ManyToOne
-    @JoinColumn(name = "collected_goods")
+    @JoinColumn(name = "collected_goods", nullable = false)
     private Goods collectedGoods;
 
-    @Column(name = "collect_date")
+    /**
+     * 收藏日期，非空
+     * */
+    @Column(name = "collect_date", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date collectDate;
 
-    public int getId() {
+    /**
+     * getter & setter
+     * */
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

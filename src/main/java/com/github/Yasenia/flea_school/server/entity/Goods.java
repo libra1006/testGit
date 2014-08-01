@@ -20,71 +20,132 @@ import javax.persistence.TemporalType;
 @Table(name = "goods")
 public class Goods implements Serializable {
 
-    private static final long serialVersionUID = 2538896066711041648L;
-    
+    private static final long serialVersionUID = 3604044215625504929L;
+
+    /**
+     * 商品Id，自动生成
+     * */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Integer id;
 
-    @Column
+    /**
+     * 商品名，非空
+     * */
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column
-    private double price;
+    /**
+     * 商品价格，非空
+     * */
+    @Column(name = "price", nullable = false)
+    private Double price;
 
+    /**
+     * 商品种类，非空
+     * */
     @ManyToOne
-    @JoinColumn(name = "goods_type_id")
+    @JoinColumn(name = "goods_type_id", nullable = false)
     private GoodsType goodsType;
 
+    /**
+     * 信息发布学校，非空
+     * */
     @ManyToOne
-    @JoinColumn(name = "school_id")
+    @JoinColumn(name = "school_id", nullable = false)
     private School school;
 
-    @Column(name = "description")
+    /**
+     * 商品描述
+     * */
+    @Column(name = "description", nullable = false)
     private String description;
 
+    /**
+     * 商品图片
+     * */
     @Column(name = "picture")
     private String picture;
 
-    @Column(name = "state")
-    private int state;
+    /**
+     * 商品状态，非空
+     * */
+    @Column(name = "state", nullable = false)
+    private Integer state;
 
-    @Column(name = "release_date")
+    /**
+     * 发布日期
+     * */
+    @Column(name = "release_date", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date releaseDate;
 
-    @Column(name = "alter_date")
+    /**
+     * 修改日期
+     * */
+    @Column(name = "alter_date", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date alterDate;
 
+    /**
+     * 有效日期
+     * */
+    @Column(name = "valid_date", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date validDate;
+
+    /**
+     * 卖家，非空
+     * */
     @ManyToOne
-    @JoinColumn(name = "seller_id")
+    @JoinColumn(name = "seller_id", nullable = false)
     private User seller;
 
+    /**
+     * 买家
+     * */
     @ManyToOne
     @JoinColumn(name = "buyer_id")
     private User buyer;
 
+    /**
+     * 卖家评价
+     * */
     @Column(name = "seller_comment")
     private String sellerComment;
 
+    /**
+     * 买家评价
+     * */
     @Column(name = "buyer_comment")
     private String buyerComment;
 
+    /**
+     * 卖家评级
+     * */
     @Column(name = "seller_comment_grade")
-    private int sellerCommentGrade;
+    private Integer sellerCommentGrade;
 
+    /**
+     * 买家评级
+     * */
     @Column(name = "buyer_comment_grade")
-    private int buyerCommentGrade;
+    private Integer buyerCommentGrade;
 
+    /**
+     * 收藏用户列表
+     * */
     @OneToMany(mappedBy = "collectedGoods")
     private List<CollectGoods> collectListAsCollected;
 
-    public int getId() {
+    /**
+     * getter & setter
+     * */
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -96,11 +157,11 @@ public class Goods implements Serializable {
         this.name = name;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
@@ -136,11 +197,11 @@ public class Goods implements Serializable {
         this.picture = picture;
     }
 
-    public int getState() {
+    public Integer getState() {
         return state;
     }
 
-    public void setState(int state) {
+    public void setState(Integer state) {
         this.state = state;
     }
 
@@ -158,6 +219,14 @@ public class Goods implements Serializable {
 
     public void setAlterDate(Date alterDate) {
         this.alterDate = alterDate;
+    }
+
+    public Date getValidDate() {
+        return validDate;
+    }
+
+    public void setValidDate(Date validDate) {
+        this.validDate = validDate;
     }
 
     public User getSeller() {
@@ -192,19 +261,19 @@ public class Goods implements Serializable {
         this.buyerComment = buyerComment;
     }
 
-    public int getSellerCommentGrade() {
+    public Integer getSellerCommentGrade() {
         return sellerCommentGrade;
     }
 
-    public void setSellerCommentGrade(int sellerCommentGrade) {
+    public void setSellerCommentGrade(Integer sellerCommentGrade) {
         this.sellerCommentGrade = sellerCommentGrade;
     }
 
-    public int getBuyerCommentGrade() {
+    public Integer getBuyerCommentGrade() {
         return buyerCommentGrade;
     }
 
-    public void setBuyerCommentGrade(int buyerCommentGrade) {
+    public void setBuyerCommentGrade(Integer buyerCommentGrade) {
         this.buyerCommentGrade = buyerCommentGrade;
     }
 
@@ -216,5 +285,5 @@ public class Goods implements Serializable {
             List<CollectGoods> collectListAsCollected) {
         this.collectListAsCollected = collectListAsCollected;
     }
-    
+
 }

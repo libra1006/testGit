@@ -17,30 +17,48 @@ import javax.persistence.Table;
 @Table(name = "goods_type")
 public class GoodsType implements Serializable {
 
-    private static final long serialVersionUID = -1390755147077859415L;
+    private static final long serialVersionUID = 103701491439503449L;
 
+    /**
+     * 商品分类Id，自动生成
+     * */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Integer id;
 
-    @Column(name = "name")
+    /**
+     * 分类名，非空
+     * */
+    @Column(name = "name", nullable = false)
     private String name;
 
+    /**
+     * 父级商品分类
+     * */
     @ManyToOne
     @JoinColumn(name = "parrent_goods_type_id")
     private GoodsType parrentGoodsType;
 
+    /**
+     * 子级商品分类
+     * */
     @OneToMany(mappedBy = "parrentGoodsType")
     private List<GoodsType> childrenGoodsType;
 
+    /**
+     * 商品列表
+     * */
     @OneToMany(mappedBy = "goodsType")
-    private List<Goods> childrenGoods;
+    private List<Goods> goodsList;
 
-    public int getId() {
+    /**
+     * getter & setter
+     * */
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -68,12 +86,12 @@ public class GoodsType implements Serializable {
         this.childrenGoodsType = childrenGoodsType;
     }
 
-    public List<Goods> getChildrenGoods() {
-        return childrenGoods;
+    public List<Goods> getGoodsList() {
+        return goodsList;
     }
 
-    public void setChildrenGoods(List<Goods> childrenGoods) {
-        this.childrenGoods = childrenGoods;
+    public void setGoodsList(List<Goods> goodsList) {
+        this.goodsList = goodsList;
     }
 
 }

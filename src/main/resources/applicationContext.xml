@@ -7,12 +7,27 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
-	
-	 <!-- 扫描带有@Service注解的类。 -->
-	<context:component-scan base-package="com.github.Yasenia.flea_school.server" use-default-filters="false">
-		<context:include-filter type="annotation" expression="org.springframework.stereotype.Service" />
-	</context:component-scan> 
-	
+
+    <!-- 
+    <context:component-scan base-package="com.github.Yasenia.flea_school.server.entity"/>
+    <context:component-scan base-package="com.github.Yasenia.flea_school.server.dao"/>
+    <context:component-scan base-package="com.github.Yasenia.flea_school.server.service"/>
+     -->
+     
+    <!-- 扫描项目中除Controller组件之外的所有组件 -->
+    <context:component-scan base-package="com.github.Yasenia.flea_school.server"  use-default-filters="true">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+    
+    <!-- 启用事务管理 -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+    
+    <!-- 事务管理类 -->
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory" />
+    </bean>
+    
+    <!-- 实体管理工厂类 -->
 	<bean id="entityManagerFactory"
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="persistenceUnitName" value="fleaSchool"/>
@@ -25,8 +40,11 @@
         </property>
 	</bean>
     
-    <bean id="jpaDialect" class="org.springframework.orm.jpa.vendor.HibernateJpaDialect"/>
+    <!-- jpa方言 -->
+    <bean id="jpaDialect" 
+        class="org.springframework.orm.jpa.vendor.HibernateJpaDialect"/>
 	
+    <!-- 数据源 -->
     <bean id="dataSource"
         class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
@@ -34,10 +52,5 @@
         <property name="username" value="sa" />
         <property name="password" value="19911006" />
     </bean>
-    
-	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-		<property name="entityManagerFactory" ref="entityManagerFactory" />
-	</bean>
 	
-	<tx:annotation-driven transaction-manager="transactionManager" />
 </beans>

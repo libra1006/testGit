@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.github.Yasenia.flea_school.server.dao.IUserDAO;
 import com.github.Yasenia.flea_school.server.entity.User;
+import com.github.Yasenia.flea_school.server.exception.DBException;
 import com.github.Yasenia.flea_school.server.service.IUserService;
 
 @Named("userService")
@@ -18,14 +19,22 @@ public class UserServiceImpl implements IUserService {
     @Named("userDAO")
     private IUserDAO userDAO;
     
-
+    @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public void save(User user) {
-        user.setRegisterDate(new Date());
-        userDAO.save(user);
-        System.out.println("User saving:");
-        System.out.println("id: " + user.getId());
-        System.out.println("password: " + user.getPassword());
-        System.out.println("register date: " + user.getRegisterDate());
+        if (userDAO.findById(user.getId()) == null) {
+            user.setRegisterDate(new Date());
+            user.setCoin(0);
+            user.setPoint(0);
+            userDAO.save(user);
+        }
+        else {
+            throw new DBException("注册id已经存在。");
+        }
+    }
+
+    @Override
+    public User findById(String id) {
+        return userDAO.findById(id);
     }
 }

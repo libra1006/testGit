@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -15,32 +17,54 @@ import javax.persistence.Table;
 @Table(name = "address")
 public class Address implements Serializable {
 
-    private static final long serialVersionUID = -7333327005968513803L;
+    private static final long serialVersionUID = -2667073197898222262L;
 
+    /**
+     * 地址Id，自动生成
+     * */
     @Id
-    private int id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
 
-    @Column(name = "name")
+    /**
+     * 地址名，非空
+     * */
+    @Column(name = "name", nullable = false)
     private String name;
 
+    /**
+     * 父级地址
+     * */
     @ManyToOne
     @JoinColumn(name = "parrent_address_id")
     private Address parrentAddress;
 
+    /**
+     * 子级地址
+     * */
     @OneToMany(mappedBy = "parrentAddress")
     private List<Address> childrenAddress;
 
+    /**
+     * 子级学校
+     * */
     @OneToMany(mappedBy = "parrentAddress")
     private List<School> childrenSchool;
 
+    /**
+     * 用户列表
+     * */
     @OneToMany(mappedBy = "address")
-    private List<User> childrenUser;
+    private List<User> userList;
 
-    public int getId() {
+    /**
+     * getter & setter
+     * */
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -76,12 +100,12 @@ public class Address implements Serializable {
         this.childrenSchool = childrenSchool;
     }
 
-    public List<User> getChildrenUser() {
-        return childrenUser;
+    public List<User> getUserList() {
+        return userList;
     }
 
-    public void setChildrenUser(List<User> childrenUser) {
-        this.childrenUser = childrenUser;
+    public void setUserList(List<User> userList) {
+        this.userList = userList;
     }
 
 }

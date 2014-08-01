@@ -7,14 +7,9 @@
 	<title>注册</title>
 </head>
 	<body>
-		<form action="register" method="post">
+		<form action="login" method="post">
 			用户名：<input type="text" name="id"/><br/>
 			密码：<input type="text" name="password"/><br/>
-			姓名：<input type="text" name="name"/><br/>
-			性别：
-			男<input type="radio" name="sex" value="0" checked="checked"/>
-			女<input type="radio" name="sex" value="1"/><br/>
-			
 			<input type="submit" value="注册"/>
 		</form>
 	</body>

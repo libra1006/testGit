@@ -17,9 +17,7 @@ public class UserDAOImpl implements IUserDAO {
     private EntityManager em;
 
     public void save(User user) {
-        System.out.println("em is: " + em);
         em.persist(user);
-        System.out.println("dsdsdsdsds");
     }
 
     public void delete(User user) {
