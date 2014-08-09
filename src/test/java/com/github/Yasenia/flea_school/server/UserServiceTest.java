@@ -1,6 +1,5 @@
 package com.github.Yasenia.flea_school.server;
 
-import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertNotNull;
 
 import javax.inject.Inject;
@@ -15,10 +14,5 @@ public class UserServiceTest extends SpringBaseTest{
     private IUserService userService;
     @Test
     public void testSave(){
-        User user = new User();
-        user.setName("test01");
-        user.setEmail("xxx@xxx.com");
-        userService.save(user);
-        assertNotNull(user.getId());
     }
 }

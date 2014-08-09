@@ -5,8 +5,6 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -14,47 +12,46 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "address")
-public class Address implements Serializable {
+@Table(name = "location")
+public class Location implements Serializable {
 
-    private static final long serialVersionUID = -2667073197898222262L;
+	private static final long serialVersionUID = -8539293849907405454L;
 
-    /**
-     * 地址Id，自动生成
+	/**
+     * 地区Id
      * */
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     /**
-     * 地址名，非空
+     * 地区名，非空
      * */
     @Column(name = "name", nullable = false)
     private String name;
 
     /**
-     * 父级地址
+     * 父级地区
      * */
     @ManyToOne
-    @JoinColumn(name = "parrent_address_id")
-    private Address parrentAddress;
+    @JoinColumn(name = "parrent_location_id")
+    private Location parrentLocation;
 
     /**
-     * 子级地址
+     * 子级地区
      * */
-    @OneToMany(mappedBy = "parrentAddress")
-    private List<Address> childrenAddress;
+    @OneToMany(mappedBy = "parrentLocation")
+    private List<Location> childrenLocation;
 
     /**
      * 子级学校
      * */
-    @OneToMany(mappedBy = "parrentAddress")
+    @OneToMany(mappedBy = "parrentLocation")
     private List<School> childrenSchool;
 
     /**
      * 用户列表
      * */
-    @OneToMany(mappedBy = "address")
+    @OneToMany(mappedBy = "location")
     private List<User> userList;
 
     /**
@@ -76,20 +73,20 @@ public class Address implements Serializable {
         this.name = name;
     }
 
-    public Address getParrentAddress() {
-        return parrentAddress;
+    public Location getParrentLocation() {
+        return parrentLocation;
     }
 
-    public void setParrentAddress(Address parrentAddress) {
-        this.parrentAddress = parrentAddress;
+    public void setParrentLocation(Location parrentLocation) {
+        this.parrentLocation = parrentLocation;
     }
 
-    public List<Address> getChildrenAddress() {
-        return childrenAddress;
+    public List<Location> getChildrenLocation() {
+        return childrenLocation;
     }
 
-    public void setChildrenAddress(List<Address> childrenAddress) {
-        this.childrenAddress = childrenAddress;
+    public void setChildrenLocation(List<Location> childrenLocation) {
+        this.childrenLocation = childrenLocation;
     }
 
     public List<School> getChildrenSchool() {

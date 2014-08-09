@@ -5,8 +5,6 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -17,13 +15,12 @@ import javax.persistence.Table;
 @Table(name = "school")
 public class School implements Serializable {
 
-    private static final long serialVersionUID = -8407789524777146923L;
+	private static final long serialVersionUID = -7045363324548418044L;
 
-    /**
-     * 学校Id，自动生成
+	/**
+     * 学校Id
      * */
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     /**
@@ -33,11 +30,11 @@ public class School implements Serializable {
     private String name;
 
     /**
-     * 父级地址
+     * 父级地区
      * */
     @ManyToOne
-    @JoinColumn(name = "parrent_address_id")
-    private Address parrentAddress;
+    @JoinColumn(name = "parrent_location_id")
+    private Location parrentLocation;
 
     /**
      * 用户列表
@@ -70,12 +67,12 @@ public class School implements Serializable {
         this.name = name;
     }
 
-    public Address getParrentAddress() {
-        return parrentAddress;
+    public Location getParrentLocation() {
+        return parrentLocation;
     }
 
-    public void setParrentAddress(Address parrentAddress) {
-        this.parrentAddress = parrentAddress;
+    public void setParrentLocation(Location parrentLocation) {
+        this.parrentLocation = parrentLocation;
     }
 
     public List<User> getUserList() {

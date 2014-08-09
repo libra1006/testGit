@@ -25,7 +25,10 @@ public interface IUserDAO {
     /**
      * 按Id查找用户
      * */
-    public User findById(String id);
+    public User findById(Integer id);
+    
+
+//	public User findByUserName(String userName);
     
     /**
      * 按属性值查找用户，支持分页

@@ -7,15 +7,34 @@
 	<title>注册</title>
 </head>
 	<body>
+		<h2>注册</h2>
 		<form action="register" method="post">
-			用户名：<input type="text" name="id"/><br/>
-			密码：<input type="text" name="password"/><br/>
-			姓名：<input type="text" name="name"/><br/>
-			性别：
-			男<input type="radio" name="sex" value="0" checked="checked"/>
-			女<input type="radio" name="sex" value="1"/><br/>
-			
-			<input type="submit" value="注册"/>
+			<table>
+				<tr>
+					<td>用户名：</td>
+					<td><input type="text" name="userName"/></td>
+				</tr>
+				<tr>
+					<td>密码：</td>
+					<td><input type="text" name="password"/></td>
+				</tr>
+				<tr>
+					<td>真实姓名：</td>
+					<td><input type="text" name="realName"/></td>
+				</tr>
+				<tr>
+					<td>性别：</td>
+					<td>
+						男<input type="radio" name="sex" value="0" checked="checked"/>
+						女<input type="radio" name="sex" value="1"/><br/>
+					</td>
+				</tr>
+				<tr>
+					<td><input type="submit" value="注册"/></td>
+					<td><input type="reset" value="重置"/></td>
+				</tr>
+			</table>
 		</form>
+		跳转至<a href="login">登录界面</a>
 	</body>
 </html>

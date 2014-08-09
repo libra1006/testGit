@@ -2,15 +2,16 @@ package com.github.Yasenia.flea_school.server.dao.impl;
 
 import java.util.List;
 
-import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.springframework.stereotype.Repository;
+
 import com.github.Yasenia.flea_school.server.dao.IUserDAO;
 import com.github.Yasenia.flea_school.server.entity.User;
 
-@Named("userDAO")
+@Repository("userDAO")
 public class UserDAOImpl implements IUserDAO {
 
     @PersistenceContext
@@ -30,10 +31,15 @@ public class UserDAOImpl implements IUserDAO {
         return result;
     }
 
-    public User findById(String id) {
+    public User findById(Integer id) {
         User result = em.find(User.class, id);
         return result;
     }
+    
+//	@Override
+//	public User findByUserName(String userName) {
+//		return null;
+//	}
 
     @SuppressWarnings("unchecked")
     public List<User> findByProperty(String propertyName, Object propertyValue,
@@ -44,7 +50,7 @@ public class UserDAOImpl implements IUserDAO {
 
         query.setParameter("propertyValue", propertyValue);
 
-        if (rowStartIdxAndCount != null) {
+        if (rowStartIdxAndCount != null && rowStartIdxAndCount.length > 0) {
             int rowStartIdx = rowStartIdxAndCount[0];
             query.setFirstResult(rowStartIdx);
             if (rowStartIdxAndCount.length > 1) {
@@ -64,7 +70,7 @@ public class UserDAOImpl implements IUserDAO {
 
         Query query = em.createQuery(queryString);
 
-        if (rowStartIdxAndCount != null) {
+        if (rowStartIdxAndCount != null && rowStartIdxAndCount.length > 0) {
             int rowStartIdx = rowStartIdxAndCount[0];
             query.setFirstResult(rowStartIdx);
             if (rowStartIdxAndCount.length > 1) {
@@ -77,5 +83,7 @@ public class UserDAOImpl implements IUserDAO {
 
         return result;
     }
+
+
 
 }

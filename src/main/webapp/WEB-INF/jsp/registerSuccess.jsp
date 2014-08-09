@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	注册成功！
+	注册成功！<br/>
+	跳转至<a href="login">登录界面</a>
 </body>
 </html>

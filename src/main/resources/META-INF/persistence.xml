@@ -14,7 +14,7 @@
 		<class>com.github.Yasenia.flea_school.server.entity.User</class>
 		<class>com.github.Yasenia.flea_school.server.entity.CollectGoods</class>
 		<class>com.github.Yasenia.flea_school.server.entity.Goods</class>
-		<class>com.github.Yasenia.flea_school.server.entity.Address</class>
+		<class>com.github.Yasenia.flea_school.server.entity.Location</class>
 		<class>com.github.Yasenia.flea_school.server.entity.School</class>
 		<class>com.github.Yasenia.flea_school.server.entity.GoodsType</class>
 		<class>com.github.Yasenia.flea_school.server.entity.FocusUser</class>
@@ -22,22 +22,8 @@
 
 		<!-- 配置数据库信息 -->
 		<properties>
-			<!-- 配置数据库驱动 -->
-			<property name="hibernate.connection.driver_class"
-				value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
-			<!-- 配置数据库url -->
-			<property name="hibernate.connection.url"
-				value="jdbc:sqlserver://localhost:1433; DatabaseName=fleaSchool" />
-			<!-- 配置Hibernate方言 -->
-			<property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect" />
-			<!-- 配置数据库用户名 -->
-			<property name="hibernate.connection.username" value="sa" />
-			<!-- 配置数据库密码 -->
-			<property name="hibernate.connection.password" value="19911006" />
-			<!-- 设置外连接抓取树的最大深度 -->
-			<property name="hibernate.max_fetch_depth" value="3" />
 			<!-- 自动输出schema创建DDL语句 -->
-			<property name="hibernate.hbm2ddl.auto" value="create-drop" />
+			<property name="hibernate.hbm2ddl.auto" value="update" />
 		</properties>
 
 	</persistence-unit>
