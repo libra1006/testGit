@@ -20,15 +20,15 @@ import javax.persistence.TemporalType;
 @Table(name = "[user]")
 public class User implements Serializable {
 
-	private static final long serialVersionUID = -593600242898381837L;
+    private static final long serialVersionUID = -593600242898381837L;
 
-	/**
+    /**
      * 用户Id，自动生成
      * */
-	@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    
+
     /**
      * 用户名，唯一，非空
      * */
@@ -81,7 +81,7 @@ public class User implements Serializable {
     private String telephone;
 
     /**
-     * 邮箱，唯一
+     * 邮箱
      * */
     @Column(name = "email")
     private String email;
@@ -168,189 +168,190 @@ public class User implements Serializable {
     /**
      * getter & setter
      * */
-    
-	public Integer getId() {
-		return id;
-	}
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public String getUserName() {
-		return userName;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
+    public String getUserName() {
+        return userName;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public String getRealName() {
-		return realName;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public void setRealName(String realName) {
-		this.realName = realName;
-	}
+    public String getRealName() {
+        return realName;
+    }
 
-	public Integer getSex() {
-		return sex;
-	}
+    public void setRealName(String realName) {
+        this.realName = realName;
+    }
 
-	public void setSex(Integer sex) {
-		this.sex = sex;
-	}
+    public Integer getSex() {
+        return sex;
+    }
 
-	public Date getBirthDate() {
-		return birthDate;
-	}
+    public void setSex(Integer sex) {
+        this.sex = sex;
+    }
 
-	public void setBirthDate(Date birthDate) {
-		this.birthDate = birthDate;
-	}
+    public Date getBirthDate() {
+        return birthDate;
+    }
 
-	public Date getRegisterDate() {
-		return registerDate;
-	}
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
 
-	public void setRegisterDate(Date registerDate) {
-		this.registerDate = registerDate;
-	}
+    public Date getRegisterDate() {
+        return registerDate;
+    }
 
-	public School getSchool() {
-		return school;
-	}
+    public void setRegisterDate(Date registerDate) {
+        this.registerDate = registerDate;
+    }
 
-	public void setSchool(School school) {
-		this.school = school;
-	}
+    public School getSchool() {
+        return school;
+    }
 
-	public String getTelephone() {
-		return telephone;
-	}
+    public void setSchool(School school) {
+        this.school = school;
+    }
 
-	public void setTelephone(String telephone) {
-		this.telephone = telephone;
-	}
+    public String getTelephone() {
+        return telephone;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public Location getLocation() {
-		return location;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public void setLocation(Location location) {
-		this.location = location;
-	}
+    public Location getLocation() {
+        return location;
+    }
 
-	public String getZip() {
-		return zip;
-	}
+    public void setLocation(Location location) {
+        this.location = location;
+    }
 
-	public void setZip(String zip) {
-		this.zip = zip;
-	}
+    public String getZip() {
+        return zip;
+    }
 
-	public String getAddress() {
-		return address;
-	}
+    public void setZip(String zip) {
+        this.zip = zip;
+    }
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
+    public String getAddress() {
+        return address;
+    }
 
-	public String getContactInformation() {
-		return contactInformation;
-	}
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
-	public void setContactInformation(String contactInformation) {
-		this.contactInformation = contactInformation;
-	}
+    public String getContactInformation() {
+        return contactInformation;
+    }
 
-	public Integer getCoin() {
-		return coin;
-	}
+    public void setContactInformation(String contactInformation) {
+        this.contactInformation = contactInformation;
+    }
 
-	public void setCoin(Integer coin) {
-		this.coin = coin;
-	}
+    public Integer getCoin() {
+        return coin;
+    }
 
-	public Integer getPoint() {
-		return point;
-	}
+    public void setCoin(Integer coin) {
+        this.coin = coin;
+    }
 
-	public void setPoint(Integer point) {
-		this.point = point;
-	}
+    public Integer getPoint() {
+        return point;
+    }
 
-	public String getIcon() {
-		return icon;
-	}
+    public void setPoint(Integer point) {
+        this.point = point;
+    }
 
-	public void setIcon(String icon) {
-		this.icon = icon;
-	}
+    public String getIcon() {
+        return icon;
+    }
 
-	public List<Goods> getGoodsListAsSeller() {
-		return goodsListAsSeller;
-	}
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
 
-	public void setGoodsListAsSeller(List<Goods> goodsListAsSeller) {
-		this.goodsListAsSeller = goodsListAsSeller;
-	}
+    public List<Goods> getGoodsListAsSeller() {
+        return goodsListAsSeller;
+    }
 
-	public List<Goods> getGoodsListAsBuyer() {
-		return goodsListAsBuyer;
-	}
+    public void setGoodsListAsSeller(List<Goods> goodsListAsSeller) {
+        this.goodsListAsSeller = goodsListAsSeller;
+    }
 
-	public void setGoodsListAsBuyer(List<Goods> goodsListAsBuyer) {
-		this.goodsListAsBuyer = goodsListAsBuyer;
-	}
+    public List<Goods> getGoodsListAsBuyer() {
+        return goodsListAsBuyer;
+    }
 
-	public List<FocusUser> getUserListAsFocus() {
-		return UserListAsFocus;
-	}
+    public void setGoodsListAsBuyer(List<Goods> goodsListAsBuyer) {
+        this.goodsListAsBuyer = goodsListAsBuyer;
+    }
 
-	public void setUserListAsFocus(List<FocusUser> userListAsFocus) {
-		UserListAsFocus = userListAsFocus;
-	}
+    public List<FocusUser> getUserListAsFocus() {
+        return UserListAsFocus;
+    }
 
-	public List<FocusUser> getUserListAsFans() {
-		return UserListAsFans;
-	}
+    public void setUserListAsFocus(List<FocusUser> userListAsFocus) {
+        UserListAsFocus = userListAsFocus;
+    }
 
-	public void setUserListAsFans(List<FocusUser> userListAsFans) {
-		UserListAsFans = userListAsFans;
-	}
+    public List<FocusUser> getUserListAsFans() {
+        return UserListAsFans;
+    }
 
-	public List<CollectGoods> getCollectListAsCollecter() {
-		return collectListAsCollecter;
-	}
+    public void setUserListAsFans(List<FocusUser> userListAsFans) {
+        UserListAsFans = userListAsFans;
+    }
 
-	public void setCollectListAsCollecter(List<CollectGoods> collectListAsCollecter) {
-		this.collectListAsCollecter = collectListAsCollecter;
-	}
+    public List<CollectGoods> getCollectListAsCollecter() {
+        return collectListAsCollecter;
+    }
 
-	public List<Permit> getPermitList() {
-		return permitList;
-	}
+    public void setCollectListAsCollecter(
+            List<CollectGoods> collectListAsCollecter) {
+        this.collectListAsCollecter = collectListAsCollecter;
+    }
 
-	public void setPermitList(List<Permit> permitList) {
-		this.permitList = permitList;
-	}
+    public List<Permit> getPermitList() {
+        return permitList;
+    }
+
+    public void setPermitList(List<Permit> permitList) {
+        this.permitList = permitList;
+    }
 
 }

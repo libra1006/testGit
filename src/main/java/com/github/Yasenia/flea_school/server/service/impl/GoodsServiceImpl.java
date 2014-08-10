@@ -1,21 +1,37 @@
 package com.github.Yasenia.flea_school.server.service.impl;
 
-import org.springframework.stereotype.Service;
+import java.util.Calendar;
+import java.util.Date;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.github.Yasenia.flea_school.server.dao.IGoodsDAO;
 import com.github.Yasenia.flea_school.server.entity.Goods;
 import com.github.Yasenia.flea_school.server.service.IGoodsService;
-
 
 @Service("goodsService")
 public class GoodsServiceImpl implements IGoodsService {
 
+    @Autowired
+    private IGoodsDAO goodsDAO;
+
     @Override
+    @Transactional(propagation = Propagation.REQUIRED)
     public void save(Goods goods) {
-        System.out.println("============商品正在存储=============");
-        System.out.println("id: " + goods.getId());
-        System.out.println("name: " + goods.getName());
-        System.out.println("price: " + goods.getPrice());
-        System.out.println("description: " + goods.getDescription());
-        System.out.println("============商品存储结束=============");
+        Date currentDate = new Date();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(currentDate);
+        cal.add(Calendar.DATE, 30);
+        Date validDate = cal.getTime();
+        
+        goods.setReleaseDate(currentDate);
+        goods.setAlterDate(currentDate);
+        goods.setValidDate(validDate);
+        
+        goods.setState(Goods.SELLING);
+        goodsDAO.save(goods);
     }
 }

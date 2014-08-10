@@ -8,11 +8,37 @@
 </head>
 	<body>
 		<div id="userPanel">
-			${isLogin }
+			<table>
+				<tr>
+					<td>Id:</td>
+					<td>${user.id }</td>
+				</tr>
+				<tr>
+					<td>用户名:</td>
+					<td>${user.userName }</td>
+				</tr>
+				<tr>
+					<td>真实姓名:</td>
+					<td>${user.realName }</td>
+				</tr>
+				<tr>
+					<td>性别:</td>
+					<td>${user.sex }</td>
+				</tr>
+				<tr>
+					<td>学校id:</td>
+					<td>${user.school.id }</td>
+				</tr>
+				<tr>
+					<td>学校名:</td>
+					<td>${user.school.name }</td>
+				</tr>
+			</table>
+		</div>
+		<div id="goodsPanel">
+			
 			
 		</div>
 		<a href="releaseGoods">发布商品</a>
-		
-		
 	</body>
 </html>

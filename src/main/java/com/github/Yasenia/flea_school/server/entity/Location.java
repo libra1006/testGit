@@ -15,9 +15,9 @@ import javax.persistence.Table;
 @Table(name = "location")
 public class Location implements Serializable {
 
-	private static final long serialVersionUID = -8539293849907405454L;
+    private static final long serialVersionUID = -8539293849907405454L;
 
-	/**
+    /**
      * 地区Id
      * */
     @Id

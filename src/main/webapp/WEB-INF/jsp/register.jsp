@@ -30,6 +30,10 @@
 					</td>
 				</tr>
 				<tr>
+					<td>学校Id：</td>
+					<td><input type="text" name="schoolId"/></td>
+				</tr>
+				<tr>
 					<td><input type="submit" value="注册"/></td>
 					<td><input type="reset" value="重置"/></td>
 				</tr>

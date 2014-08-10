@@ -35,11 +35,6 @@ public class UserDAOImpl implements IUserDAO {
         User result = em.find(User.class, id);
         return result;
     }
-    
-//	@Override
-//	public User findByUserName(String userName) {
-//		return null;
-//	}
 
     @SuppressWarnings("unchecked")
     public List<User> findByProperty(String propertyName, Object propertyValue,
@@ -83,7 +78,5 @@ public class UserDAOImpl implements IUserDAO {
 
         return result;
     }
-
-
 
 }

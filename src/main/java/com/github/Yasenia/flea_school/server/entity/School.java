@@ -15,9 +15,9 @@ import javax.persistence.Table;
 @Table(name = "school")
 public class School implements Serializable {
 
-	private static final long serialVersionUID = -7045363324548418044L;
+    private static final long serialVersionUID = -7045363324548418044L;
 
-	/**
+    /**
      * 学校Id
      * */
     @Id

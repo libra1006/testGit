@@ -17,34 +17,36 @@ import com.github.Yasenia.flea_school.server.service.IUserService;
 public class UserServiceImpl implements IUserService {
     @Autowired
     private IUserDAO userDAO;
-    
+
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public void save(User user) {
-    	List<User> resultList = userDAO.findByProperty("userName", user.getUserName());
-		if (resultList != null && resultList.size() >= 1) {
+        List<User> resultList = userDAO.findByProperty("userName",
+                user.getUserName());
+        if (resultList != null && resultList.size() >= 1) {
             throw new DBException("用户名已经存在。");
-		}
-		else {
-			user.setRegisterDate(new Date());
-			user.setCoin(0);
-			user.setPoint(0);
-			userDAO.save(user);
-		}
+        } else {
+            user.setRegisterDate(new Date());
+            user.setCoin(0);
+            user.setPoint(0);
+            userDAO.save(user);
+        }
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED)
     public User findById(Integer id) {
         return userDAO.findById(id);
     }
 
-	@Override
-	public User findByUserName(String userName) {
-		User user = null;
-		List<User> resultList = userDAO.findByProperty("userName", userName);
-		if (resultList != null && resultList.size() >= 1) {
-			user = resultList.get(0);
-		}
-		return user;
-	}
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public User findByUserName(String userName) {
+        User user = null;
+        List<User> resultList = userDAO.findByProperty("userName", userName);
+        if (resultList != null && resultList.size() >= 1) {
+            user = resultList.get(0);
+        }
+        return user;
+    }
 }

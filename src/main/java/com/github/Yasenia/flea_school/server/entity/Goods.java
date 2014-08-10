@@ -20,7 +20,12 @@ import javax.persistence.TemporalType;
 @Table(name = "goods")
 public class Goods implements Serializable {
 
-    private static final long serialVersionUID = 3604044215625504929L;
+    private static final long serialVersionUID = -715696906958331964L;
+
+    public static final int SELLING = 0;
+    public static final int SOLD_OUT = 1;
+    public static final int OUT_DATE = 2;
+    public static final int CANCEL = 3;
 
     /**
      * 商品Id，自动生成

@@ -15,8 +15,16 @@
 					<td><input type="text" name="name"/></td>
 				</tr>
 				<tr>
+					<td>分类Id：</td>
+					<td><input type="text" name="goodsTypeId"/></td>
+				</tr>
+				<tr>
 					<td>价格：</td>
 					<td><input type="text" name="price"/></td>
+				</tr>
+				<tr>
+					<td>学校Id：</td>
+					<td><input type="text" name="schoolId"/></td>
 				</tr>
 				<tr>
 					<td>描述：</td>

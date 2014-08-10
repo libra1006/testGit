@@ -1,7 +1,7 @@
 package com.github.Yasenia.flea_school.server.exception;
 
 public class DBException extends RuntimeException {
-    
+
     private static final long serialVersionUID = 4076226180514805662L;
 
     public DBException() {
