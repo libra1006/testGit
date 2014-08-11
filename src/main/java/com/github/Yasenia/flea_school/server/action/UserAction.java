@@ -1,5 +1,7 @@
 package com.github.Yasenia.flea_school.server.action;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,27 +12,42 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.github.Yasenia.flea_school.server.entity.Goods;
 import com.github.Yasenia.flea_school.server.entity.School;
 import com.github.Yasenia.flea_school.server.entity.User;
 import com.github.Yasenia.flea_school.server.exception.DBException;
 import com.github.Yasenia.flea_school.server.service.ICommonService;
+import com.github.Yasenia.flea_school.server.service.IGoodsService;
 import com.github.Yasenia.flea_school.server.service.IUserService;
 
+/**
+ * UserAction
+ * 
+ * @author Yasenia (458875608@qq.com)
+ * */
 @Controller
 @SessionAttributes(value = { "user" })
 public class UserAction {
-    @Autowired
-    private IUserService userService;
-
-    @Autowired
-    private ICommonService commonService;
-
+    /**
+     * 视图名常量
+     * */
     public static final String REGISTER_INPUT = "register";
     public static final String REGISTER_SUCCESS = "registerSuccess";
     public static final String LOGIN_INPUT = "login";
     public static final String HOME_INPUT = "home";
     public static final String HOME_PAGE = "homePage";
+    
+    /**
+     * service对象
+     * */
+    @Autowired
+    private IUserService userService;
+    @Autowired
+    private IGoodsService goodsService;
+    @Autowired
+    private ICommonService commonService;
 
+    
     /**
      * 初始化模型对象中参数"user"
      * */
@@ -50,11 +67,14 @@ public class UserAction {
 
     /**
      * 注册页面提交表单
+     * 
+     * @param user 接收表单提交的用户相关参数并封装为模型对象user
+     * @param schoolId 接收表单提交的schoolId参数
      * */
     @RequestMapping(value = REGISTER_INPUT, method = RequestMethod.POST)
     public String submitRegister(@ModelAttribute("registUser") User user,
-            @RequestParam("schoolId") Integer id) {
-        School school = commonService.findSchoolById(id);
+            @RequestParam("schoolId") Integer schoolId) {
+        School school = commonService.findSchoolById(schoolId);
         user.setSchool(school);
         try {
             userService.save(user);
@@ -96,8 +116,12 @@ public class UserAction {
      * */
     @RequestMapping(value = HOME_INPUT)
     public ModelAndView setUpHome(@ModelAttribute(value = "user") User user) {
-
+        
+        Integer schoolId = user.getSchool().getId();
+        List<Goods> goodsList = goodsService.findGoodsBySchoolId(schoolId);
+        
         ModelAndView mv = new ModelAndView();
+        mv.addObject("goodsList", goodsList);
         mv.setViewName(HOME_PAGE);
         return mv;
     }

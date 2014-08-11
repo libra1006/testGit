@@ -16,19 +16,29 @@ import com.github.Yasenia.flea_school.server.entity.User;
 import com.github.Yasenia.flea_school.server.service.ICommonService;
 import com.github.Yasenia.flea_school.server.service.IGoodsService;
 
+/**
+ * GoodsAction
+ * 
+ * @author Yasenia (458875608@qq.com)
+ * */
 @Controller
 @SessionAttributes(value = { "user" })
 public class GoodsAction {
-
+    /**
+     * 视图名常量
+     * */
     public static final String RELEASE_GOODS = "releaseGoods";
     public static final String RELEASE_SUCCESS = "releaseSuccess";
 
+    /**
+     * service对象
+     * */
     @Autowired
     private IGoodsService goodsService;
-
     @Autowired
     private ICommonService commonService;
 
+    
     @RequestMapping(value = { RELEASE_GOODS }, method = RequestMethod.GET)
     public String setUpReleaseGoods() {
         return RELEASE_GOODS;

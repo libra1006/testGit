@@ -15,7 +15,7 @@ import javax.persistence.Table;
 @Table(name = "school")
 public class School implements Serializable {
 
-    private static final long serialVersionUID = -7045363324548418044L;
+    private static final long serialVersionUID = -4537152108004884398L;
 
     /**
      * 学校Id
@@ -47,6 +47,12 @@ public class School implements Serializable {
      * */
     @OneToMany(mappedBy = "school")
     private List<Permit> permitList;
+    
+    /**
+     * 商品列表
+     * */
+    @OneToMany(mappedBy = "school")
+    private List<Goods> goodsList;
 
     /**
      * getter & setter
@@ -89,6 +95,14 @@ public class School implements Serializable {
 
     public void setPermitList(List<Permit> permitList) {
         this.permitList = permitList;
+    }
+
+    public List<Goods> getGoodsList() {
+        return goodsList;
+    }
+
+    public void setGoodsList(List<Goods> goodsList) {
+        this.goodsList = goodsList;
     }
 
 }

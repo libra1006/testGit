@@ -8,12 +8,6 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 
-    <!-- 
-    <context:component-scan base-package="com.github.Yasenia.flea_school.server.entity"/>
-    <context:component-scan base-package="com.github.Yasenia.flea_school.server.dao"/>
-    <context:component-scan base-package="com.github.Yasenia.flea_school.server.service"/>
-     -->
-     
     <!-- 扫描项目中除Controller组件之外的所有组件 -->
     <context:component-scan base-package="com.github.Yasenia.flea_school.server"  use-default-filters="true">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>

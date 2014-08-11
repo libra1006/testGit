@@ -10,11 +10,11 @@
 	<name>flea_school</name>
 	<url>http://maven.apache.org</url>
 
-
-
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<!-- spring 统一版本号 -->
 		<org.springframework.version>4.0.3.RELEASE</org.springframework.version>
+		<!-- hibernate 统一版本号 -->
 		<org.hibernate.version>4.3.5.Final</org.hibernate.version>
 	</properties>
 
@@ -27,17 +27,32 @@
 			<version>4.8.2</version>
 			<scope>test</scope>
 		</dependency>
-		
+
+		<!-- MySql 驱动 -->
 		<dependency>
-		        <groupId>mysql</groupId>
-		        <artifactId>mysql-connector-java</artifactId>
-		        <version>5.1.18</version>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.18</version>
 		</dependency>
-		
+
+		<!-- servlet 环境 -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<version>3.0.1</version>
+		</dependency>
+
+		<!-- JSTL -->
+		<dependency>
+			<groupId>jstl</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>taglibs</groupId>
+			<artifactId>standard</artifactId>
+			<version>1.1.2</version>
 		</dependency>
 
 

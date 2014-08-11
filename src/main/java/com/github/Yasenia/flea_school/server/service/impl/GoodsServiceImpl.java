@@ -2,6 +2,7 @@ package com.github.Yasenia.flea_school.server.service.impl;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,5 +34,12 @@ public class GoodsServiceImpl implements IGoodsService {
         
         goods.setState(Goods.SELLING);
         goodsDAO.save(goods);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public List<Goods> findGoodsBySchoolId(Integer schoolId) {
+        List<Goods> goodsList = goodsDAO.findGoodsBySchoolId(schoolId);
+        return goodsList;
     }
 }

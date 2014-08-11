@@ -40,7 +40,7 @@ public class CommonServiceImpl implements ICommonService {
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public Location findLocationById(Integer id) {
-        return null;
+        return commonDAO.findLocationById(id);
     }
 
     @Override
