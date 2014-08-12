@@ -1,5 +1,7 @@
 package com.github.Yasenia.flea_school.server.action;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,7 +9,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.github.Yasenia.flea_school.server.entity.Goods;
 import com.github.Yasenia.flea_school.server.entity.GoodsType;
@@ -22,7 +23,6 @@ import com.github.Yasenia.flea_school.server.service.IGoodsService;
  * @author Yasenia (458875608@qq.com)
  * */
 @Controller
-@SessionAttributes(value = { "user" })
 public class GoodsAction {
     /**
      * 用户访问 URL
@@ -38,7 +38,7 @@ public class GoodsAction {
     /**
      * 表单提交请求 URL
      * */
-    public static final String RELEASE_GOODS_ACTION = "releaseGoodsAction";
+    public static final String RELEASE_GOODS_ACTION = "/releaseGoodsAction";
 
     /**
      * service对象
@@ -66,16 +66,16 @@ public class GoodsAction {
      * */
     @RequestMapping(value = { RELEASE_GOODS_ACTION }, method = RequestMethod.POST)
     public String submitReleaseGoods(@ModelAttribute("goods") Goods goods,
-            @ModelAttribute("user") User user,
             @RequestParam("schoolId") Integer schoolId,
             @RequestParam("goodsTypeId") Integer goodsTypeId,
+            HttpSession session,
             Model model) {
+        User seller = (User) session.getAttribute("user");
         School school = commonService.findSchoolById(schoolId);
         GoodsType goodsType = commonService.findGoodsTypeById(goodsTypeId);
-        
+        goods.setSeller(seller);
         goods.setSchool(school);
         goods.setGoodsType(goodsType);
-        goods.setSeller(user);
         goodsService.save(goods);
         return RELEASE_SUCCESS_VIEW;
     }

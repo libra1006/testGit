@@ -9,20 +9,33 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 
     <!-- 仅扫描项目中Controller组件 -->
-    <context:component-scan base-package="com.github.Yasenia.flea_school.server"  use-default-filters="false">
-        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    <context:component-scan base-package="com.github.Yasenia.flea_school.server"
+        use-default-filters="false">
+        <context:include-filter type="annotation"
+            expression="org.springframework.stereotype.Controller" />
     </context:component-scan>
-    
-	<!-- 默认的注解映射的支持 -->
-	<mvc:annotation-driven />
 
-	<!-- 视图解释类 -->
-	<bean
-		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/WEB-INF/jsp/" />
-		<property name="suffix" value=".jsp" />
-	</bean>
+    <!-- 默认的注解映射的支持 -->
+    <mvc:annotation-driven />
+
+    <!-- 视图解释类 -->
+    <bean
+        class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/jsp/" />
+        <property name="suffix" value=".jsp" />
+    </bean>
+
+    <!-- 对静态资源文件的访问 方案 -->
+    <mvc:default-servlet-handler />
     
-	<!-- 对静态资源文件的访问 方案 -->
-	<mvc:default-servlet-handler />  
+    <!-- 
+    <bean id="mappingJacksonHttpMessageConverter" class="org.springframework.  
+    http.converter.json.MappingJacksonHttpMessageConverter">  
+        <property name="supportedMediaTypes">  
+            <list>  
+                <value>text/html;charset=UTF-8</value>  
+            </list>  
+        </property>  
+    </bean>  
+     -->
 </beans>

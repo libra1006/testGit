@@ -32,6 +32,13 @@ public class CommonServiceImpl implements ICommonService {
     }
 
     @Override
+    public List<School> findSchoolByParrentId(Integer parrent_id) {
+        Location parrentLocation = commonDAO.findLocationById(parrent_id);
+        List<School> result = parrentLocation.getChildrenSchool();
+        return result;
+    }
+    
+    @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public List<School> findAllSchool() {
         List<School> result = commonDAO.findAllSchool();
@@ -47,6 +54,14 @@ public class CommonServiceImpl implements ICommonService {
     @Transactional(propagation = Propagation.REQUIRED)
     public Location findLocationByName(String name) {
         return null;
+    }
+    
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public List<Location> findLocationByParrentId(Integer parrent_id) {
+        Location parrentLocation = commonDAO.findLocationById(parrent_id);
+        List<Location> result = parrentLocation.getChildrenLocation();
+        return result;
     }
 
     @Override
@@ -74,4 +89,6 @@ public class CommonServiceImpl implements ICommonService {
     public List<GoodsType> findAllGoodsType() {
         return null;
     }
+
+
 }

@@ -32,6 +32,12 @@ public class UserServiceImpl implements IUserService {
             userDAO.save(user);
         }
     }
+    
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void update(User user) {
+        userDAO.update(user);
+    }
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
@@ -49,4 +55,5 @@ public class UserServiceImpl implements IUserService {
         }
         return user;
     }
+
 }

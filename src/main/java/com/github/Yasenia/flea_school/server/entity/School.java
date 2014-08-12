@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 @Entity
 @Table(name = "school")
 public class School implements Serializable {
@@ -39,18 +41,21 @@ public class School implements Serializable {
     /**
      * 用户列表
      * */
+    @JsonIgnore
     @OneToMany(mappedBy = "school")
     private List<User> userList;
 
     /**
      * 通行证列表
      * */
+    @JsonIgnore
     @OneToMany(mappedBy = "school")
     private List<Permit> permitList;
     
     /**
      * 商品列表
      * */
+    @JsonIgnore
     @OneToMany(mappedBy = "school")
     private List<Goods> goodsList;
 

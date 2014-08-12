@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 @Entity
 @Table(name = "location")
 public class Location implements Serializable {
@@ -39,18 +41,21 @@ public class Location implements Serializable {
     /**
      * 子级地区
      * */
+    @JsonIgnore
     @OneToMany(mappedBy = "parrentLocation")
     private List<Location> childrenLocation;
 
     /**
      * 子级学校
      * */
+    @JsonIgnore
     @OneToMany(mappedBy = "parrentLocation")
     private List<School> childrenSchool;
 
     /**
      * 用户列表
      * */
+    @JsonIgnore
     @OneToMany(mappedBy = "location")
     private List<User> userList;
 

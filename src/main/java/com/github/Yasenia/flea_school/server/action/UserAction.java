@@ -2,17 +2,18 @@ package com.github.Yasenia.flea_school.server.action;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.github.Yasenia.flea_school.server.entity.Goods;
+import com.github.Yasenia.flea_school.server.entity.Location;
 import com.github.Yasenia.flea_school.server.entity.School;
 import com.github.Yasenia.flea_school.server.entity.User;
 import com.github.Yasenia.flea_school.server.exception.DBException;
@@ -26,7 +27,6 @@ import com.github.Yasenia.flea_school.server.service.IUserService;
  * @author Yasenia (458875608@qq.com)
  * */
 @Controller
-@SessionAttributes(value = { "user" })
 public class UserAction {
     /**
      * 用户访问 URL
@@ -36,6 +36,8 @@ public class UserAction {
     public static final String HOME_URL = "/home";
     public static final String LOGOUT_URL = "/logout";
     public static final String USER_CENTER_URL = "/userCenter";
+    public static final String EDIT_INFORMATION_URL = "/editInformation";
+    
     
     /**
      * 视图名
@@ -45,13 +47,14 @@ public class UserAction {
     public static final String HOME_VIEW = "user/home";
     public static final String USER_CENTER_VIEW = "user/userCenter";
     public static final String REGISTER_SUCCESS_VIEW = "user/registerSuccess";
+    public static final String EDIT_INFORMATION_VIEW = "user/editInformation";
     
     /**
      * 表单提交请求 URL
      * */
-    public static final String REGISTER_ACTION = "registerAction";
-    public static final String LOGIN_ACTION = "loginAction";
-    
+    public static final String REGISTER_ACTION = "/registerAction";
+    public static final String LOGIN_ACTION = "/loginAction";
+    public static final String EDIT_INFORMATION_ACTION = "/editInformationAction";
     /**
      * service对象
      * */
@@ -76,8 +79,12 @@ public class UserAction {
      * 用户访问注册url，定向跳转至注册视图
      * */
     @RequestMapping(value = REGISTER_URL, method = RequestMethod.GET)
-    public String setUpRegister() {
-        return REGISTER_VIEW;
+    public ModelAndView setUpRegister() {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName(REGISTER_VIEW);
+        List<Location> locationList = commonService.findLocationByParrentId(0);
+        mv.addObject("locationList", locationList);
+        return mv;
     }
     
     /**
@@ -92,9 +99,11 @@ public class UserAction {
      * 用户访问主页面url，定向跳转至主页面视图
      * */
     @RequestMapping(value = HOME_URL, method = RequestMethod.GET)
-    public ModelAndView setUpHome(@ModelAttribute(value = "user") User user) {
+    public ModelAndView setUpHome(HttpSession session) {
         ModelAndView mv = new ModelAndView();
         mv.setViewName(HOME_VIEW);
+        
+        User user = (User) session.getAttribute("user");
         List<Goods> goodsList = null;
         if (user != null && user.getId() != null) {
             Integer schoolId = user.getSchool().getId();
@@ -103,6 +112,8 @@ public class UserAction {
         else {
             goodsList = goodsService.findAll(0, 20);
         }
+        
+        mv.addObject("user", user);
         mv.addObject("goodsList", goodsList);
         return mv;
     }
@@ -111,20 +122,71 @@ public class UserAction {
      * 用户访问退出登录url，定向跳转至主页
      * */
     @RequestMapping(value = LOGOUT_URL, method = RequestMethod.GET)
-    public String setUpLogout(Model model) {
-        User user = new User();
-        model.addAttribute("user", user);
+    public String setUpLogout(HttpSession session) {
+        session.removeAttribute("user");
         return "redirect:" + HOME_URL;
     }
     
     /**
-     * 用户访问用户中心url，定向跳转至用户中心
+     * 用户访问用户中心url，定向跳转至用户中心视图
      * */
     @RequestMapping(value = USER_CENTER_URL, method = RequestMethod.GET)
-    public String setUpUserCenter(Model model) {
-        User user = new User();
-        model.addAttribute("user", user);
-        return USER_CENTER_VIEW;
+    public ModelAndView setUpUserCenter(HttpSession session) {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName(USER_CENTER_VIEW);
+        
+        User user = (User) session.getAttribute("user");
+        mv.addObject("user", user);
+        
+        return mv;
+    }
+    
+    /**
+     * 用户访问修改资料url，定向跳转至修改资料视图
+     * */
+    @RequestMapping(value = EDIT_INFORMATION_URL, method = RequestMethod.GET)
+    public ModelAndView setUpEditInformation(HttpSession session) {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName(EDIT_INFORMATION_VIEW);
+        
+        User user = (User) session.getAttribute("user");
+        Integer areaId = null;
+        Integer cityId = null;
+        Integer provinceId = null;
+        Location location = user.getLocation();
+        if (location == null || location.getId() == 0) {
+            areaId = -1;
+            cityId = -1;
+            provinceId = -1;
+        }
+        else if (location.getParrentLocation().getId() == 0) {
+            areaId = -1;
+            cityId = -1;
+            provinceId = location.getId();
+        }
+        else if (location.getParrentLocation().getParrentLocation().getId() == 0) {
+            areaId = -1;
+            cityId = location.getId();
+            provinceId = location.getParrentLocation().getId();
+        }
+        else {
+            areaId = location.getId();
+            cityId = location.getParrentLocation().getId();
+            provinceId = location.getParrentLocation().getParrentLocation().getId();
+        }
+        
+        School school = user.getSchool();
+        Integer schoolId = school.getId();
+        Integer locationId = school.getParrentLocation().getId();
+        
+        mv.addObject("user", user);
+        mv.addObject("areaId", areaId);
+        mv.addObject("cityId", cityId);
+        mv.addObject("provinceId", provinceId);
+        mv.addObject("schoolId", schoolId);
+        mv.addObject("locationId", locationId);
+        
+        return mv;
     }
 
     /**
@@ -152,19 +214,59 @@ public class UserAction {
      * */
     @RequestMapping(value = LOGIN_ACTION, method = RequestMethod.POST)
     public String submitLogin(@ModelAttribute(value = "loginUser") User user,
-            Model model) {
+            HttpSession session) {
+        boolean flag = false;
+        
         // 获取真实用户信息
         User realUser = userService.findByUserName(user.getUserName());
         
+        if (realUser == null) {
+            flag = false;
+        }
+        else if (!realUser.getPassword().equals(user.getPassword())) {
+            flag = false;
+        }
         // 若密码正确，则将真实用户信息放入session，并转至主页
-        if (realUser.getPassword().equals(user.getPassword())) {
-            model.addAttribute("user", realUser);
-            System.out.println("登录成功");
+        else {
+            session.setAttribute("user", realUser);
+            flag = true;
+        }
+        if (flag) {
             return "redirect:" + HOME_URL;
-        } 
-        // 若密码错误，返回登陆视图
+        }
         else {
             return LOGIN_VIEW;
         }
+    }
+    
+    
+    /**
+     * 修改资料视图提交表单
+     * */
+    @RequestMapping(value = EDIT_INFORMATION_ACTION, method = RequestMethod.POST)
+    public String submitEditInformation(@ModelAttribute(value = "editUser") User user,
+            @RequestParam("provinceId") Integer provinceId,
+            @RequestParam("cityId") Integer cityId,
+            @RequestParam("areaId") Integer areaId,
+            HttpSession session) {
+        Location location = null;
+        if (areaId != -1) {
+            location = commonService.findLocationById(areaId);
+        }
+        else if (cityId != -1) {
+            location = commonService.findLocationById(cityId);
+        }
+        else if (provinceId != -1) {
+            location = commonService.findLocationById(provinceId);
+        }
+        if (location != null) {
+            user.setLocation(location);
+        }
+        User realUser = (User) session.getAttribute("user");
+        user.setId(realUser.getId());
+        
+        userService.update(user);
+        session.setAttribute("user", user);
+        return null;
     }
 }

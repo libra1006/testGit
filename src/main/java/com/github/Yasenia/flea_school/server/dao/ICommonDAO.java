@@ -25,4 +25,5 @@ public interface ICommonDAO {
     public GoodsType findGoodsTypeByName(String name);
     
     public List<GoodsType> findAllGoodsType();
+
 }

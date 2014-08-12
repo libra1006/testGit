@@ -78,4 +78,5 @@ public class CommonDAOImpl implements ICommonDAO {
     public List<GoodsType> findAllGoodsType() {
         return null;
     }
+
 }
