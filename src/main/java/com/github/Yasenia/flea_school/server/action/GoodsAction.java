@@ -25,10 +25,20 @@ import com.github.Yasenia.flea_school.server.service.IGoodsService;
 @SessionAttributes(value = { "user" })
 public class GoodsAction {
     /**
-     * 视图名常量
+     * 用户访问 URL
      * */
-    public static final String RELEASE_GOODS = "releaseGoods";
-    public static final String RELEASE_SUCCESS = "releaseSuccess";
+    public static final String RELEASE_GOODS_URL = "/releaseGoods";
+    
+    /**
+     * 视图名
+     * */
+    public static final String RELEASE_GOODS_VIEW = "goods/releaseGoods";
+    public static final String RELEASE_SUCCESS_VIEW = "goods/releaseSuccess";
+    
+    /**
+     * 表单提交请求 URL
+     * */
+    public static final String RELEASE_GOODS_ACTION = "releaseGoodsAction";
 
     /**
      * service对象
@@ -38,13 +48,23 @@ public class GoodsAction {
     @Autowired
     private ICommonService commonService;
 
-    
-    @RequestMapping(value = { RELEASE_GOODS }, method = RequestMethod.GET)
+    /**
+     * 用户访问发布商品 url，定向跳转至发布商品视图
+     * */
+    @RequestMapping(value = { RELEASE_GOODS_URL }, method = RequestMethod.GET)
     public String setUpReleaseGoods() {
-        return RELEASE_GOODS;
+        return RELEASE_GOODS_VIEW;
     }
 
-    @RequestMapping(value = { RELEASE_GOODS }, method = RequestMethod.POST)
+    /**
+     * 发布商品视图提交表单
+     * 
+     * @param goods 接收表单提交的商品关参数并封装为模型对象goods
+     * @param user 从session中获取用户对象user
+     * @param schoolId 接收表单提交的schoolId参数
+     * @param goodsTypeId 接收表单提交的goodsTypeId参数
+     * */
+    @RequestMapping(value = { RELEASE_GOODS_ACTION }, method = RequestMethod.POST)
     public String submitReleaseGoods(@ModelAttribute("goods") Goods goods,
             @ModelAttribute("user") User user,
             @RequestParam("schoolId") Integer schoolId,
@@ -57,6 +77,6 @@ public class GoodsAction {
         goods.setGoodsType(goodsType);
         goods.setSeller(user);
         goodsService.save(goods);
-        return RELEASE_SUCCESS;
+        return RELEASE_SUCCESS_VIEW;
     }
 }

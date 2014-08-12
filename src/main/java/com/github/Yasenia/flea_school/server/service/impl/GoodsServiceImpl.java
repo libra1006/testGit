@@ -42,4 +42,10 @@ public class GoodsServiceImpl implements IGoodsService {
         List<Goods> goodsList = goodsDAO.findGoodsBySchoolId(schoolId);
         return goodsList;
     }
+
+    @Override
+    public List<Goods> findAll(int... rowStartIdxAndCount) {
+        List<Goods> goodsList = goodsDAO.findAll(rowStartIdxAndCount);
+        return goodsList;
+    }
 }

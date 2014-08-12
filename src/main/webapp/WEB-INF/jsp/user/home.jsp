@@ -5,37 +5,53 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Insert title here</title>
+	<title>主页</title>
 </head>
 	<body>
 		<div id="userPanel">
-			<table>
-				<tr>
-					<td>Id:</td>
-					<td>${user.id }</td>
-				</tr>
-				<tr>
-					<td>用户名:</td>
-					<td>${user.userName }</td>
-				</tr>
-				<tr>
-					<td>真实姓名:</td>
-					<td>${user.realName }</td>
-				</tr>
-				<tr>
-					<td>性别:</td>
-					<td>${user.sex }</td>
-				</tr>
-				<tr>
-					<td>学校id:</td>
-					<td>${user.school.id }</td>
-				</tr>
-				<tr>
-					<td>学校名:</td>
-					<td>${user.school.name }</td>
-				</tr>
-			</table>
+		
+		<c:choose>
+			<c:when test="${user == null || user.id == null }">
+				用户未登录<br />
+				<a href="login">登录</a><br/>
+				<a href="register">注册</a><br/>
+			</c:when>
+			<c:otherwise>
+				<table>
+					<tr>
+						<td>Id:</td>
+						<td>${user.id }</td>
+					</tr>
+					<tr>
+						<td>用户名:</td>
+						<td>${user.userName }</td>
+					</tr>
+					<tr>
+						<td>真实姓名:</td>
+						<td>${user.realName }</td>
+					</tr>
+					<tr>
+						<td>性别:</td>
+						<td>${user.sex }</td>
+					</tr>
+					<tr>
+						<td>学校id:</td>
+						<td>${user.school.id }</td>
+					</tr>
+					<tr>
+						<td>学校名:</td>
+						<td>${user.school.name }</td>
+					</tr>
+				</table>
+				<a href="userCenter">个人中心</a><br/>
+				<a href="logout">退出登录</a><br/>
+			</c:otherwise>
+		</c:choose>
 		</div>
+		
+		<br/>
+		<br/>
+		
 		<div id="goodsPanel">
 			<table border="1">
 				<tr>
@@ -48,6 +64,7 @@
 					<td>卖家用戶名</td>
 					<td>卖家姓名</td>
 				</tr>
+
 			<c:forEach var="goods" items="${goodsList }">
 				<tr>
 					<td>${goods.id}</td>

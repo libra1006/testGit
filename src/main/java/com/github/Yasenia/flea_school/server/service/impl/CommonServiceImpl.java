@@ -72,7 +72,6 @@ public class CommonServiceImpl implements ICommonService {
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public List<GoodsType> findAllGoodsType() {
-        // TODO Auto-generated method stub
         return null;
     }
 }

@@ -8,7 +8,7 @@
 </head>
 	<body>
 		<h2>登录</h2>
-		<form action="login" method="post">
+		<form action="loginAction" method="post">
 			<table>
 				<tr>
 					<td>用户名：</td>

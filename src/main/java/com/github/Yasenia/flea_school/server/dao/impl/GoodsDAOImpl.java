@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
@@ -27,6 +28,27 @@ public class GoodsDAOImpl implements IGoodsDAO {
     public List<Goods> findGoodsBySchoolId(Integer schoolId) {
         School school = em.find(School.class, schoolId);
         List<Goods> result = school.getGoodsList();
+        return result;
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<Goods> findAll(int[] rowStartIdxAndCount) {
+        String queryString = "SELECT g FROM Goods g";
+
+        Query query = em.createQuery(queryString);
+
+        if (rowStartIdxAndCount != null && rowStartIdxAndCount.length > 0) {
+            int rowStartIdx = rowStartIdxAndCount[0];
+            query.setFirstResult(rowStartIdx);
+            if (rowStartIdxAndCount.length > 1) {
+                int rowCount = rowStartIdxAndCount[1];
+                query.setMaxResults(rowCount);
+            }
+        }
+
+        List<Goods> result = query.getResultList();
+
         return result;
     }
 }

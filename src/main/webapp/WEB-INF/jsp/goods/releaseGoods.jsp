@@ -8,7 +8,7 @@
 </head>
 	<body>
 		<h2>发布商品</h2>
-		<form action="releaseGoods" method="post">
+		<form action="releaseGoodsAction" method="post">
 			<table>
 				<tr>
 					<td>商品名：</td>

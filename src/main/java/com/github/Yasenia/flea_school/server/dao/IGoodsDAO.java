@@ -10,4 +10,6 @@ public interface IGoodsDAO {
 
     public List<Goods> findGoodsBySchoolId(Integer schoolId);
 
+    public List<Goods> findAll(int[] rowStartIdxAndCount);
+
 }
