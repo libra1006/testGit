@@ -2,14 +2,19 @@
  * 
  */
 $(document).ready(function() {
-    // 设置地区下拉框数据
-    setLoactionSelect(0, "#locationSelect");
+    // 设置学校区域下拉框
+    setLoactionSelect(0, "#schoolLocationSelect");
     
-    $("#locationSelect").change(
+    // 监听学校区域下拉框
+    $("#schoolLocationSelect").change(
         function() {
-            var parrentId = $("#locationSelect").val();
+            var parrentId = $("#schoolLocationSelect").val();
             if (parrentId != "-1") {
                 setSchoolSelect(parrentId, "#schoolSelect");
+            }
+            else {
+                $("#schoolSelect").empty();
+                $("#schoolSelect").append("<option value='-1'>请选择</option>");
             }
             $("#schoolSelect").val("-1");
         }

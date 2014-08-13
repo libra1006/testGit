@@ -3,6 +3,7 @@
  */
 function setLoactionSelect(parrentId, selectElement) {
     $.ajax({
+        async: false,
         url: "findLoactionByParrentId",
         type: "Post",
         data: {parrentId: parrentId},
@@ -19,6 +20,7 @@ function setLoactionSelect(parrentId, selectElement) {
 
 function setSchoolSelect(parrentId, selectElement) {
     $.ajax({
+        async: false,
         url: "findSchoolByParrentId",
         type: "Post",
         data: {parrentId: parrentId},

@@ -36,7 +36,8 @@ public class UserAction {
     public static final String HOME_URL = "/home";
     public static final String LOGOUT_URL = "/logout";
     public static final String USER_CENTER_URL = "/userCenter";
-    public static final String EDIT_INFORMATION_URL = "/editInformation";
+    public static final String BASE_INFORMATION_URL = "/baseInformation";
+    public static final String MORE_INFORMATION_URL = "/moreInformation";
     
     
     /**
@@ -47,14 +48,16 @@ public class UserAction {
     public static final String HOME_VIEW = "user/home";
     public static final String USER_CENTER_VIEW = "user/userCenter";
     public static final String REGISTER_SUCCESS_VIEW = "user/registerSuccess";
-    public static final String EDIT_INFORMATION_VIEW = "user/editInformation";
+    public static final String BASE_INFORMATION_VIEW = "user/baseInformation";
+    public static final String MORE_INFORMATION_VIEW = "user/moreInformation";
     
     /**
      * 表单提交请求 URL
      * */
     public static final String REGISTER_ACTION = "/registerAction";
     public static final String LOGIN_ACTION = "/loginAction";
-    public static final String EDIT_INFORMATION_ACTION = "/editInformationAction";
+    public static final String BASE_INFORMATION_ACTION = "/baseInformationAction";
+    public static final String MORE_INFORMATION_ACTION = "/moreInformationAction";
     /**
      * service对象
      * */
@@ -98,7 +101,7 @@ public class UserAction {
     /**
      * 用户访问主页面url，定向跳转至主页面视图
      * */
-    @RequestMapping(value = HOME_URL, method = RequestMethod.GET)
+    @RequestMapping(value = {HOME_URL, ""}, method = RequestMethod.GET)
     public ModelAndView setUpHome(HttpSession session) {
         ModelAndView mv = new ModelAndView();
         mv.setViewName(HOME_VIEW);
@@ -124,7 +127,7 @@ public class UserAction {
     @RequestMapping(value = LOGOUT_URL, method = RequestMethod.GET)
     public String setUpLogout(HttpSession session) {
         session.removeAttribute("user");
-        return "redirect:" + HOME_URL;
+        return "redirect: " + HOME_URL;
     }
     
     /**
@@ -142,49 +145,56 @@ public class UserAction {
     }
     
     /**
-     * 用户访问修改资料url，定向跳转至修改资料视图
+     * 用户访问基本资料url，定向跳转至基本资料视图
      * */
-    @RequestMapping(value = EDIT_INFORMATION_URL, method = RequestMethod.GET)
-    public ModelAndView setUpEditInformation(HttpSession session) {
+    @RequestMapping(value = BASE_INFORMATION_URL, method = RequestMethod.GET)
+    public ModelAndView setUpBaseInformation(HttpSession session) {
         ModelAndView mv = new ModelAndView();
-        mv.setViewName(EDIT_INFORMATION_VIEW);
+        mv.setViewName(BASE_INFORMATION_VIEW);
         
         User user = (User) session.getAttribute("user");
-        Integer areaId = null;
-        Integer cityId = null;
-        Integer provinceId = null;
+        Location area = null;
+        Location city = null;
+        Location province = null;
+        
         Location location = user.getLocation();
         if (location == null || location.getId() == 0) {
-            areaId = -1;
-            cityId = -1;
-            provinceId = -1;
         }
         else if (location.getParrentLocation().getId() == 0) {
-            areaId = -1;
-            cityId = -1;
-            provinceId = location.getId();
+            province = location;
         }
         else if (location.getParrentLocation().getParrentLocation().getId() == 0) {
-            areaId = -1;
-            cityId = location.getId();
-            provinceId = location.getParrentLocation().getId();
+            city = location;
+            province = location.getParrentLocation();
         }
         else {
-            areaId = location.getId();
-            cityId = location.getParrentLocation().getId();
-            provinceId = location.getParrentLocation().getParrentLocation().getId();
+            area = location;
+            city = location.getParrentLocation();
+            province = location.getParrentLocation().getParrentLocation();
         }
         
         School school = user.getSchool();
-        Integer schoolId = school.getId();
-        Integer locationId = school.getParrentLocation().getId();
+        Location schoolLocation = school.getParrentLocation();
         
         mv.addObject("user", user);
-        mv.addObject("areaId", areaId);
-        mv.addObject("cityId", cityId);
-        mv.addObject("provinceId", provinceId);
-        mv.addObject("schoolId", schoolId);
-        mv.addObject("locationId", locationId);
+        mv.addObject("area", area);
+        mv.addObject("city", city);
+        mv.addObject("province", province);
+        mv.addObject("school", school);
+        mv.addObject("schoolLocation", schoolLocation);
+        
+        return mv;
+    }
+    /**
+     * 用户访问详细资料url，定向跳转至详细资料视图
+     * */
+    @RequestMapping(value = MORE_INFORMATION_URL, method = RequestMethod.GET)
+    public ModelAndView setUpMoreInformation(HttpSession session) {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName(MORE_INFORMATION_VIEW);
+        
+        User user = (User) session.getAttribute("user");
+        mv.addObject("user", user);
         
         return mv;
     }
@@ -232,7 +242,7 @@ public class UserAction {
             flag = true;
         }
         if (flag) {
-            return "redirect:" + HOME_URL;
+            return "redirect: " + HOME_URL;
         }
         else {
             return LOGIN_VIEW;
@@ -243,12 +253,35 @@ public class UserAction {
     /**
      * 修改资料视图提交表单
      * */
-    @RequestMapping(value = EDIT_INFORMATION_ACTION, method = RequestMethod.POST)
+    @RequestMapping(value = BASE_INFORMATION_ACTION, method = RequestMethod.POST)
     public String submitEditInformation(@ModelAttribute(value = "editUser") User user,
+            @RequestParam("schoolId") Integer schoolId,
             @RequestParam("provinceId") Integer provinceId,
             @RequestParam("cityId") Integer cityId,
             @RequestParam("areaId") Integer areaId,
             HttpSession session) {
+        
+        // 获取真实用户信息
+        Integer realUserId = ((User) session.getAttribute("user")).getId();
+        User realUser = userService.findById(realUserId);
+        
+        // 设置真实姓名
+        String realName = user.getRealName().trim();
+        if (realName != null && !realName.equals("")) {
+            realUser.setRealName(realName);
+        }
+        
+        // 设置性别
+        Integer sex = user.getSex();
+        if (sex != null) {
+            realUser.setSex(sex);
+        }
+        
+        // 设置学校
+        School school = commonService.findSchoolById(schoolId);
+        realUser.setSchool(school);
+        
+        // 设置所在地
         Location location = null;
         if (areaId != -1) {
             location = commonService.findLocationById(areaId);
@@ -260,13 +293,15 @@ public class UserAction {
             location = commonService.findLocationById(provinceId);
         }
         if (location != null) {
-            user.setLocation(location);
+            realUser.setLocation(location);
         }
-        User realUser = (User) session.getAttribute("user");
-        user.setId(realUser.getId());
         
-        userService.update(user);
-        session.setAttribute("user", user);
-        return null;
+        // 更新用户信息
+        userService.update(realUser);
+        
+        // 更新session
+        session.setAttribute("user", realUser);
+        
+        return "redirect: " + BASE_INFORMATION_URL;
     }
 }
