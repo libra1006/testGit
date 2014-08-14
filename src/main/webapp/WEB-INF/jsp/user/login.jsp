@@ -20,29 +20,29 @@
 <body>
     <div class="container frame">
         <div class="row">
-            <div class="col-xs-6">
+            <div class="col-xs-8">
                 <h2 class="text-center">登录</h2>
                 <form class="form-horizontal" action="loginAction" method="post">
                     <div class="form-group">
                         <label class="control-label col-xs-3 ">用户名</label>
-                        <div class="col-xs-9">
+                        <div class="col-xs-6">
                             <input class="form-control" type="text" name="userName" placeholder="UserName"/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-xs-3">密码</label>
-                        <div class="col-xs-9">
+                        <div class="col-xs-6">
                             <input class="form-control" type="text" name="password" placeholder="Password"/>
                         </div>
                     </div>
                     <div class="form-group">                            
-                        <div class="control-label col-xs-3 col-xs-offset-3">
+                        <div class="control-label col-xs-2 col-xs-offset-3">
                             <p class="text-left">
                                 <input class="btn btn-info" type="submit" value="登录" />
                             </p>
                         </div>
-                        <div class="control-label col-xs-6">
-                            <p class="text-left">
+                        <div class="control-label col-xs-4">
+                            <p class="text-right">
                                 <a class="btn btn-success" href="register">没有账号，点击注册</a>
                             </p>
                         </div>

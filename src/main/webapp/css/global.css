@@ -4,6 +4,10 @@ body {
     background-color: #CCC;
 }
 
+select {
+    width: auto;
+}
+
 .frame{
     min-width: 900px;
     max-width: 900px;

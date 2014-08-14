@@ -55,7 +55,7 @@
             <version>1.1.2</version>
         </dependency>
     
-        <!-- Json支持 -->
+        <!-- Jackson Json支持 -->
         <dependency>
             <groupId>org.codehaus.jackson</groupId>
             <artifactId>jackson-core-asl</artifactId>
@@ -66,7 +66,6 @@
             <artifactId>jackson-mapper-asl</artifactId>
             <version>1.9.8</version>
         </dependency>  
-
 
         <!-- JSR-330 -->
         <dependency>

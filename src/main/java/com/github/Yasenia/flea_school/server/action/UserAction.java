@@ -39,7 +39,7 @@ public class UserAction {
     public static final String BASE_INFORMATION_URL = "/baseInformation";
     public static final String MORE_INFORMATION_URL = "/moreInformation";
     
-    
+     
     /**
      * 视图名
      * */
@@ -85,8 +85,6 @@ public class UserAction {
     public ModelAndView setUpRegister() {
         ModelAndView mv = new ModelAndView();
         mv.setViewName(REGISTER_VIEW);
-        List<Location> locationList = commonService.findLocationByParrentId(0);
-        mv.addObject("locationList", locationList);
         return mv;
     }
     
@@ -151,37 +149,9 @@ public class UserAction {
     public ModelAndView setUpBaseInformation(HttpSession session) {
         ModelAndView mv = new ModelAndView();
         mv.setViewName(BASE_INFORMATION_VIEW);
-        
+
         User user = (User) session.getAttribute("user");
-        Location area = null;
-        Location city = null;
-        Location province = null;
-        
-        Location location = user.getLocation();
-        if (location == null || location.getId() == 0) {
-        }
-        else if (location.getParrentLocation().getId() == 0) {
-            province = location;
-        }
-        else if (location.getParrentLocation().getParrentLocation().getId() == 0) {
-            city = location;
-            province = location.getParrentLocation();
-        }
-        else {
-            area = location;
-            city = location.getParrentLocation();
-            province = location.getParrentLocation().getParrentLocation();
-        }
-        
-        School school = user.getSchool();
-        Location schoolLocation = school.getParrentLocation();
-        
         mv.addObject("user", user);
-        mv.addObject("area", area);
-        mv.addObject("city", city);
-        mv.addObject("province", province);
-        mv.addObject("school", school);
-        mv.addObject("schoolLocation", schoolLocation);
         
         return mv;
     }

@@ -11,7 +11,6 @@
     <head>
         <script type="text/javascript" src="js/jquery-1.11.1.js"></script>
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
-        
         <script type="text/javascript" src="js/tools.js"></script>
         <script type="text/javascript" src="js/user/register.js"></script>
         
@@ -26,9 +25,7 @@
         <div class="container frame">
             <div class="row">
                 <div class="col-xs-8">
-                    <h2 class="text-center">
-                        注册
-                    </h2>
+                    <h2 class="text-center">注册</h2>
                     <form class="form-horizontal" action="registerAction" method="post">
                         <div class="form-group">
                             <label class="control-label col-xs-3 ">用户名</label>
@@ -61,29 +58,21 @@
                         </div>
                         <div class="form-group">
                             <label class="control-label col-xs-3">学校</label>
-                            <div class="col-xs-9">
-                                <div class="row">
-                                    <div class="col-xs-4">
-                                        <select class="form-control" id="schoolLocationSelect" >
-                                            <option value="-1">请选择</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-xs-4">
-                                        <select class="form-control" id="schoolSelect" name="schoolId">
-                                            <option value="-1">请选择</option>
-                                        </select>
-                                    </div>
-                                </div>
+                            <div class="col-xs-6">
+                                <select class="form-control" id="schoolLocationSelect" >
+                                </select>
+                                <select class="form-control" id="schoolSelect" name="schoolId">
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="control-label col-xs-3 col-xs-offset-3">
+                            <div class="control-label col-xs-2 col-xs-offset-3">
                                 <p class="text-left">
                                     <input class="btn btn-info" type="submit" value="注册" />
                                 </p>
                             </div>
-                            <div class="control-label col-xs-6">
-                                <p class="text-left">
+                            <div class="control-label col-xs-4">
+                                <p class="text-right">
                                     <a class="btn btn-success" href="login">已有账号，直接登录</a>
                                 </p>
                             </div>
