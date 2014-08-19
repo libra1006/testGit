@@ -125,7 +125,7 @@ public class UserAction {
     @RequestMapping(value = LOGOUT_URL, method = RequestMethod.GET)
     public String setUpLogout(HttpSession session) {
         session.removeAttribute("user");
-        return "redirect: " + HOME_URL;
+        return "redirect:" + HOME_URL;
     }
     
     /**
@@ -195,6 +195,7 @@ public class UserAction {
     @RequestMapping(value = LOGIN_ACTION, method = RequestMethod.POST)
     public String submitLogin(@ModelAttribute(value = "loginUser") User user,
             HttpSession session) {
+        
         boolean flag = false;
         
         // 获取真实用户信息
@@ -202,9 +203,11 @@ public class UserAction {
         
         if (realUser == null) {
             flag = false;
+            System.out.println("用户不存在");
         }
         else if (!realUser.getPassword().equals(user.getPassword())) {
             flag = false;
+            System.out.println("密码不正确");
         }
         // 若密码正确，则将真实用户信息放入session，并转至主页
         else {
@@ -212,7 +215,7 @@ public class UserAction {
             flag = true;
         }
         if (flag) {
-            return "redirect: " + HOME_URL;
+            return "redirect:" + HOME_URL;
         }
         else {
             return LOGIN_VIEW;
@@ -272,6 +275,6 @@ public class UserAction {
         // 更新session
         session.setAttribute("user", realUser);
         
-        return "redirect: " + BASE_INFORMATION_URL;
+        return "redirect:" + BASE_INFORMATION_URL;
     }
 }
